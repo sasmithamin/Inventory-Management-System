@@ -34,15 +34,15 @@ export const Dashboard = () => {
     ].filter((d) => d.value > 0);
   }, [products]);
 
-  const StatCard = ({ icon: Icon, label, value, color }) => (
-    <div className="bg-white dark:bg-gray-800 rounded-lg p-6 shadow-sm border border-gray-200 dark:border-gray-700">
-      <div className="flex items-center gap-4">
-        <div className={`p-3 rounded-lg ${color}`}>
-          <Icon size={24} className="text-white" />
-        </div>
+  const StatCard = ({ icon: Icon, label, value, iconColor }) => (
+    <div className="bg-white dark:bg-gray-800 rounded-xl p-6 border border-gray-200 dark:border-gray-700 shadow-sm transition-all hover:shadow-md">
+      <div className="flex items-center justify-between">
         <div>
-          <p className="text-sm text-gray-500 dark:text-gray-400">{label}</p>
-          <p className="text-2xl font-bold text-gray-900 dark:text-white">{value}</p>
+          <p className="text-xs font-semibold uppercase tracking-wider text-gray-500 dark:text-gray-400">{label}</p>
+          <p className="text-3xl font-bold text-gray-900 dark:text-white mt-2 tracking-tight">{value}</p>
+        </div>
+        <div className="p-2.5 rounded-lg bg-gray-50 dark:bg-gray-900/50 border border-gray-100 dark:border-gray-800/80">
+          <Icon size={20} className={iconColor} />
         </div>
       </div>
     </div>
@@ -55,32 +55,32 @@ export const Dashboard = () => {
           icon={Package}
           label="Total Products"
           value={stats.totalProducts}
-          color="bg-blue-500"
+          iconColor="text-blue-500 dark:text-blue-400"
         />
         <StatCard
           icon={DollarSign}
           label="Inventory Value"
           value={formatCurrency(stats.totalValue)}
-          color="bg-green-500"
+          iconColor="text-emerald-500 dark:text-emerald-400"
         />
         <StatCard
           icon={AlertTriangle}
           label="Out of Stock"
           value={stats.outOfStock}
-          color="bg-red-500"
+          iconColor="text-red-500 dark:text-red-400"
         />
         <StatCard
           icon={Layers}
           label="Low Stock (≤5)"
           value={stats.lowStock}
-          color="bg-amber-500"
+          iconColor="text-amber-500 dark:text-amber-400"
         />
       </div>
 
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
         {/* Category Distribution */}
-        <div className="bg-white dark:bg-gray-800 rounded-lg p-6 shadow-sm border border-gray-200 dark:border-gray-700">
-          <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-4">
+        <div className="bg-white dark:bg-gray-800 rounded-xl p-6 shadow-sm border border-gray-200 dark:border-gray-700">
+          <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-4 tracking-tight">
             Products by Category
           </h3>
           {stats.categoryData.length === 0 ? (
@@ -89,15 +89,15 @@ export const Dashboard = () => {
             <div className="h-64">
               <ResponsiveContainer width="100%" height="100%">
                 <BarChart data={stats.categoryData}>
-                  <CartesianGrid strokeDasharray="3 3" stroke="#374151" opacity={0.2} />
-                  <XAxis dataKey="name" tick={{ fill: '#9CA3AF', fontSize: 12 }} />
-                  <YAxis tick={{ fill: '#9CA3AF', fontSize: 12 }} allowDecimals={false} />
+                  <CartesianGrid strokeDasharray="3 3" stroke="#27272a" opacity={0.3} />
+                  <XAxis dataKey="name" tick={{ fill: '#71717a', fontSize: 11 }} axisLine={false} tickLine={false} />
+                  <YAxis tick={{ fill: '#71717a', fontSize: 11 }} axisLine={false} tickLine={false} allowDecimals={false} />
                   <Tooltip
                     contentStyle={{
-                      backgroundColor: '#1F2937',
-                      border: 'none',
+                      backgroundColor: '#09090b',
+                      border: '1px solid #27272a',
                       borderRadius: '8px',
-                      color: '#F3F4F6',
+                      color: '#f4f4f5',
                     }}
                   />
                   <Bar dataKey="count" fill="#3B82F6" radius={[4, 4, 0, 0]} />
@@ -108,8 +108,8 @@ export const Dashboard = () => {
         </div>
 
         {/* Stock Status Pie Chart */}
-        <div className="bg-white dark:bg-gray-800 rounded-lg p-6 shadow-sm border border-gray-200 dark:border-gray-700">
-          <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-4">
+        <div className="bg-white dark:bg-gray-800 rounded-xl p-6 shadow-sm border border-gray-200 dark:border-gray-700">
+          <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-4 tracking-tight">
             Stock Status Distribution
           </h3>
           {stockDistribution.length === 0 ? (
@@ -133,10 +133,10 @@ export const Dashboard = () => {
                   </Pie>
                   <Tooltip
                     contentStyle={{
-                      backgroundColor: '#1F2937',
-                      border: 'none',
+                      backgroundColor: '#09090b',
+                      border: '1px solid #27272a',
                       borderRadius: '8px',
-                      color: '#F3F4F6',
+                      color: '#f4f4f5',
                     }}
                   />
                   <Legend />
@@ -148,25 +148,25 @@ export const Dashboard = () => {
       </div>
 
       {/* Category Summary Table */}
-      <div className="bg-white dark:bg-gray-800 rounded-lg shadow-sm border border-gray-200 dark:border-gray-700 overflow-hidden">
+      <div className="bg-white dark:bg-gray-800 rounded-xl shadow-sm border border-gray-200 dark:border-gray-700 overflow-hidden">
         <div className="px-6 py-4 border-b border-gray-200 dark:border-gray-700">
-          <h3 className="text-lg font-semibold text-gray-900 dark:text-white">Category Summary</h3>
+          <h3 className="text-lg font-semibold text-gray-900 dark:text-white tracking-tight">Category Summary</h3>
         </div>
         <div className="overflow-x-auto">
           <table className="w-full text-sm text-left">
-            <thead className="bg-gray-50 dark:bg-gray-800/50 text-gray-700 dark:text-gray-300">
+            <thead className="bg-gray-50 dark:bg-gray-900 text-gray-700 dark:text-gray-300">
               <tr>
-                <th className="px-6 py-3">Category</th>
-                <th className="px-6 py-3">Product Count</th>
-                <th className="px-6 py-3">Total Value</th>
+                <th className="px-6 py-3 font-semibold">Category</th>
+                <th className="px-6 py-3 font-semibold">Product Count</th>
+                <th className="px-6 py-3 font-semibold">Total Value</th>
               </tr>
             </thead>
-            <tbody className="divide-y divide-gray-200 dark:divide-gray-700">
+            <tbody className="divide-y divide-gray-250 dark:divide-gray-700">
               {stats.categoryData.map((cat) => (
-                <tr key={cat.name} className="hover:bg-gray-50 dark:hover:bg-gray-800/50">
-                  <td className="px-6 py-3 font-medium text-gray-900 dark:text-white">{cat.name}</td>
-                  <td className="px-6 py-3">{cat.count}</td>
-                  <td className="px-6 py-3">{formatCurrency(cat.value)}</td>
+                <tr key={cat.name} className="hover:bg-gray-50 dark:hover:bg-gray-800/40 transition-colors">
+                  <td className="px-6 py-3.5 font-medium text-gray-900 dark:text-white">{cat.name}</td>
+                  <td className="px-6 py-3.5">{cat.count}</td>
+                  <td className="px-6 py-3.5 font-mono">{formatCurrency(cat.value)}</td>
                 </tr>
               ))}
               {stats.categoryData.length === 0 && (
