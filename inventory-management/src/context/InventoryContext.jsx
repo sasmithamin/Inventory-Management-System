@@ -39,30 +39,29 @@ export const InventoryProvider = ({ children }) => {
   }, []);
 
   const adjustStock = useCallback((id, amount, reason = '') => {
-    setProductsState((prev) => {
-      const product = prev.find((p) => p.id === id);
-      if (!product) return prev;
+    const product = products.find((p) => p.id === id);
+    if (!product) return;
 
-      const previousStock = product.stock;
-      const newStock = Math.max(0, previousStock + amount);
+    const previousStock = product.stock;
+    const newStock = Math.max(0, previousStock + amount);
 
-      // Log history
-      const logEntry = {
-        id: crypto.randomUUID(),
-        productId: id,
-        productName: product.name,
-        type: amount >= 0 ? 'increase' : 'decrease',
-        amount: Math.abs(amount),
-        previousStock,
-        newStock,
-        timestamp: new Date().toISOString(),
-        reason,
-      };
-      setHistoryState((h) => [logEntry, ...h]);
+    const logEntry = {
+      id: crypto.randomUUID(),
+      productId: id,
+      productName: product.name,
+      type: amount >= 0 ? 'increase' : 'decrease',
+      amount: Math.abs(amount),
+      previousStock,
+      newStock,
+      timestamp: new Date().toISOString(),
+      reason,
+    };
 
-      return prev.map((p) => (p.id === id ? { ...p, stock: newStock } : p));
-    });
-  }, []);
+    setHistoryState((h) => [logEntry, ...h]);
+    setProductsState((prev) =>
+      prev.map((p) => (p.id === id ? { ...p, stock: newStock } : p))
+    );
+  }, [products]);
 
   const addCategory = useCallback((name) => {
     const trimmed = name.trim();
