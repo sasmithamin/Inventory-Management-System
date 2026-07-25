@@ -1,16 +1,82 @@
-# React + Vite
+---------------Project overview--------------
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Project structure as below,
 
-Currently, two official plugins are available:
+src/
+├── components/
+│   ├── Layout.jsx
+│   ├── Dashboard.jsx
+│   ├── ProductList.jsx
+│   ├── ProductForm.jsx
+│   ├── StockAdjustmentModal.jsx
+│   ├── StockHistory.jsx
+│   ├── CategoryManager.jsx
+│   ├── Modal.jsx
+│   ├── ConfirmDialog.jsx
+│   ├── InputField.jsx
+│   ├── SelectField.jsx
+│   └── EmptyState.jsx
+├── context/
+│   ├── ThemeContext.jsx
+│   └── InventoryContext.jsx
+├── utils/
+│   ├── storage.js
+│   └── helpers.js
+├── types/
+│   └── index.js
+├── App.jsx
+├── main.jsx
+└── index.css
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+-------------------Tech Stack---------------------
 
-## React Compiler
+React 18 + Vite
+Formik + Yup - form handling and validation
+Tailwind CSS - styling
+Recharts - analytics charts
+Lucide React - icons
+localStorage - data persistence
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
 
-## Expanding the ESLint configuration
+------------------How to run the project locally--------------
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+Follow below steps,
+
+1. Clone the repository
+
+git clone 
+cd inventory-management
+
+Install dependencies
+
+npm install
+
+Start the dev server
+
+npm run dev
+
+Open your browser
+
+Navigate to http://localhost:5173
+
+
+------------------------List of features implemented----------------------
+
+Core Features,
+
+Product Management - Add, edit, delete products with auto-generated SKU (e.g., PRD-482910)
+Stock Management - Increase (restock) and decrease (sales) stock with validation to prevent negative values
+Dashboard - View total products, total inventory value, out-of-stock count and low-stock alerts
+Category Handling - Create custom categories, assign to products, filter by category, view product count per category
+Search & Filter - Search by product name or SKU, filter by category, filter by stock status (In Stock / Out of Stock)
+Responsive UI - Works on mobile and desktop with clean layout
+
+Bonus Features Mentioned,
+
+Auto-generated SKU - Unique Product ID generated automatically
+Stock History Log - Every stock change recorded with timestamp, reason, before/after values
+Export to CSV - Download full product list as .csv
+Dark Mode - Toggle between light/dark themes, preference saved in localStorage
+Analytics Chart - Bar chart of products by category + Pie chart of stock status distribution
+Bulk Actions - Select multiple products to delete or restock (+10) at once
+
